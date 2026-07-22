@@ -53,11 +53,9 @@ class ChirpController extends Controller
         // Validate the request
         $validated = $request->validate([
             'message' => 'required|string|max:255',
-                
-                //Rule::unique('chirps')->where(function ($query) use ($user) {
-                //return $query->where('user_id', $user->id);
-                //})
-
+                Rule::unique('chirps')->where(function ($query) use ($user) {
+                return $query->where('user_id', $user->id);
+            })
         ], [
              'message.required' => 'Please write something to chirp!',
              'message.max' => 'Chirps must be 255 characters or less.',
@@ -92,10 +90,7 @@ class ChirpController extends Controller
     {
         // We'll add authorization in lesson 11
         // return view('chirps.edit', compact('chirp'));
-        //$this->authorize('update', $chirp);
-        if ($chirp->user_id !== auth()->id()) {
-            abort(403, 'Unauthorized');
-        }
+        $this->authorize('update', $chirp);
 
         return view('chirps.edit', compact('chirp'));
     }
@@ -105,11 +100,7 @@ class ChirpController extends Controller
      */
     public function update(Request $request, Chirp $chirp) //string $id
     {
-        //$this->authorize('update', $chirp);
-
-        if ($chirp->user_id !== auth()->id()) {
-            abort(403, 'Unauthorized');
-        }
+        $this->authorize('update', $chirp);
     
         // Validate
         $validated = $request->validate([
@@ -127,11 +118,7 @@ class ChirpController extends Controller
      */
     public function destroy(Chirp $chirp) //string $id
     {
-        //$this->authorize('delete', $chirp);
-
-        if ($chirp->user_id !== auth()->id()) {
-            abort(403, 'Unauthorized');
-        }
+        $this->authorize('delete', $chirp);
 
         $chirp->delete();
 
