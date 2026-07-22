@@ -7,16 +7,16 @@
         <div class="hero-content flex-col">
             <div class="card w-96 bg-base-100">
                 <div class="card-body">
-                    <h1 class="text-xl mt-1 font-bold text-center mb-6">Welcome Back</h1> //text-3xl
+                    <h1 class="text-xl mt-1 font-bold text-center mb-6">Welcome Back</h1> <!-- text-3xl -->
 
                     <form method="POST" action="/login">
                         @csrf
 
                         <!-- Email -->
-                        <label class="floating-label mb-6">
+                        <label class="floating-label mb-6"> <!-- Original Placeholder:"[mail@example.com](<mailto:mail@example.com>)" -->
                             <input type="email"
                                    name="email"
-                                   placeholder="[mail@example.com](<mailto:mail@example.com>)"
+                                   placeholder="mail@example.com"
                                    value="{{ old('email') }}"
                                    class="input input-bordered @error('email') input-error @enderror"
                                    required
