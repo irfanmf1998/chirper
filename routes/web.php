@@ -43,6 +43,9 @@ Route::view('/register', 'auth.register')
 Route::post('/register', Register::class)
     ->middleware('guest');
 
+// Route untuk menampilkan halaman pencarian
+Route::get('/search', [ChirpController::class, 'search']);
+
 //Route::get('/', function () {
     //return view('welcome');
 //});

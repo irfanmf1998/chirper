@@ -15,7 +15,8 @@ class ChirpController extends Controller
         $chirps = Chirp::with('user')
             ->latest()
             ->take(50)
-            ->get();
+            ->paginate(5);
+            //->get();
 
             // [
             //     'author' => 'Jane Doe',
@@ -136,5 +137,23 @@ class ChirpController extends Controller
         $chirp->delete();
 
         return redirect('/')->with('success', 'Chirp deleted!');
+    }
+
+    /**
+     * Fungsi pencarian
+     */
+    public function search(Request $request)
+    {
+        //Menangkap data pencarian
+        $cari = $request->input('cari');
+
+        //Mengambil data dari table chirps sesuai pencarian data
+        $chirps = Chirp::where('message', 'like', "%".$cari."%")
+            ->latest()
+            ->paginate(5);
+            //->get();
+
+        //Mengirim data ke view index
+        return view('home', ['chirps' => $chirps]);
     }
 }

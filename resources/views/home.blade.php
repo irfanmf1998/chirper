@@ -29,6 +29,14 @@
             </div>
         </div>
 
+        <!-- Form pencarian chirp -->
+        <div class="mt-8">
+            <form action="/search" method="GET">
+                <input type="text" name="cari" placeholder="Search chirps.." class="input" value="{{ old('cari') }}">
+                <input class="btn" type="submit" value="SEARCH">
+            </form>
+        </div>     
+
         <div class="max-w-2xl mx-auto">
             <h1 class="text-3xl font-bold mt-8">Latest Chirps</h1>
 
@@ -95,6 +103,10 @@
                     <!-- <p class="text-gray-500">No chirps yet. Be the first to chirp!</p> -->
                 @endforelse
             </div>
+
+            <br>
+            {{ $chirps->links() }}
+
         </div>
     </x-layout>
 
