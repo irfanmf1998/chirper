@@ -156,4 +156,37 @@ class ChirpController extends Controller
         //Mengirim data ke view index
         return view('home', ['chirps' => $chirps]);
     }
+
+    /**
+     * Fungsi profil pengguna yang sedang login
+     */
+    public function my_page()
+    {
+        // Mengambil data pengguna yang sedang login
+        $user = auth()->user();
+
+        // Mengirim data pengguna ke view my_page
+        return view('my_page', compact('user'));
+    }
+
+    /**
+     * Fungsi profil pengguna lain
+     */
+    public function user_profile($id)
+    {
+        // Mengambil data pengguna berdasarkan ID
+        $user = \App\Models\User::findOrFail($id);
+
+        //Jika pengguna sedang login mengakses profilnya sendiri, arahkan ke halaman my_page
+        if ($user == auth()->user()) {
+            return view('my_page', compact('user'));
+        }
+
+        // Mengambil data chirp milik pengguna tersebut
+        $chirps = $user->chirps()->latest()->paginate(5);
+
+        // Mengirim data pengguna dan chirp ke view user_profile
+        return view('user_profile', compact('user', 'chirps'));
+    }
+
 }

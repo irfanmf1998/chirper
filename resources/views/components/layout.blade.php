@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="lofi">
+<html lang="en" data-theme="default">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +11,13 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen flex flex-col bg-base-200 font-sans">
-    <nav class="navbar bg-base-100">
+    <nav class="navbar bg-base-100" style="position: fixed; top: 0; width: 100%; z-index: 1000;">
+    <!-- <nav class="navbar bg-base-100"> -->
         <div class="navbar-start">
+            
             <!-- <a href="/" class="btn btn-ghost text-xl">🐦 Chirper</a> -->
+            
+            <!-- Chirper Logo SVG + Homepage Link -->
             <a href="/">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 312 69"
                     class="h-7 w-auto px-4">
@@ -41,44 +45,51 @@
                     </defs>
                 </svg>
             </a>
+            <!-- Chirper Logo SVG + Homepage Link -->
+
         </div>
         <div class="navbar-end gap-2">
-            @auth
-                <span class="text-sm">{{ auth()->user()->name }}</span>
+            @auth <!-- Jika pengguna sudah login -->
+                <!-- My Page -->
+                <a href="/my_page" class="btn btn-ghost">
+                    <div class="avatar">
+                        <img src="https://avatars.laravel.cloud/{{ urlencode(auth()->user()->email) }}" alt="{{ auth()->user()->name }}'s avatar" class="size-8 rounded-full" />
+                    </div>
+                    <span>{{ auth()->user()->name }}</span>
+                </a>
+                <!-- My Page -->
+                
+                <!-- Log Out -->
                 <form method="POST" action="/logout" class="inline">
                     @csrf
-                    <button type="submit" class="btn btn-ghost btn-sm">Logout</button>
+                    <button type="submit" class="btn btn-soft btn-error">Log Out</button>
                 </form>
-            @else
-            <a href="/login" class="btn btn-ghost btn-sm">Sign In</a>
-            <a href="{{ route('register') }}" class="btn btn-primary btn-sm">Sign Up</a>
+                <!-- Log Out -->
+            @else <!-- Jika pengguna belum login -->
+            <a href="/login" class="btn btn-ghost">Sign In</a>
+            <a href="{{ route('register') }}" class="btn btn-soft btn-primary">Sign Up</a>
             @endauth
         </div>
     </nav>
 
-    <!-- Success Toast -->
+    <!-- Toast (Notifikasi) -->
     @if (session('success'))
-        <div class="toast toast-top toast-center">
+        <div class="toast toast-top toast-center" style="position: fixed; top: 6rem; left: 50%; z-index: 1000;"> <!-- transform: translateX(-50%); -->
             <div class="alert alert-success animate-fade-out">
                 <svg xmlns="<http://www.w3.org/2000/svg>" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <span>{{ session('success') }}</span>
+                <span class="text-lg">{{ session('success') }}</span>
             </div>
         </div>
     @endif
-
-    <main class="flex-1 container mx-auto px-4 py-8">
+    <!-- Toast (Notifikasi) -->
+    
+    <!-- Ini bagian utama dari halaman, di mana konten spesifik dari setiap halaman akan ditampilkan -->
+    <main class="flex-1 container mx-auto px-4 py-20">
         {{ $slot }}
     </main>
-
-    <!--
-    <footer class="footer footer-center p-5 bg-base-300 text-base-content text-xs">
-        <div>
-            <p>© {{ date('Y') }} Chirper - Built with Laravel and ❤️</p>
-        </div>
-    </footer>
-    -->
+    <!-- Ini bagian utama dari halaman, di mana konten spesifik dari setiap halaman akan ditampilkan -->
 
     <footer class="w-full mt-24">
         <div class="mx-auto w-full max-w-[1400px] px-4 xl:px-16">
@@ -103,6 +114,14 @@
             </p>
         </div>
     </footer>
+
+    <!--
+    <footer class="footer footer-center p-5 bg-base-300 text-base-content text-xs">
+        <div>
+            <p>© {{ date('Y') }} Chirper - Built with Laravel and ❤️</p>
+        </div>
+    </footer>
+    -->
 
 </body>
 </html>

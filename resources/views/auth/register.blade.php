@@ -7,7 +7,7 @@
         <div class="hero-content flex-col">
             <div class="card w-96 bg-base-100">
                 <div class="card-body">
-                    <h1 class="text-xl mt-1 font-bold text-center mb-6">Create Account</h1> <!-- text-3xl -->
+                    <p class="text-3xl mt-1 font-bold text-center mb-6 text-primary">Create Account</p> <!-- text-3xl -->
 
                     <form method="POST" action="/register">
                         @csrf
@@ -32,7 +32,7 @@
                         <label class="floating-label mb-6"> <!-- Original Placeholder:"[mail@example.com](<mailto:mail@example.com>)" -->
                             <input type="email"
                                    name="email"
-                                   placeholder="mail@example.com"
+                                   placeholder="mail@example.com"p
                                    value="{{ old('email') }}"
                                    class="input input-bordered @error('email') input-error @enderror"
                                    required>
@@ -50,6 +50,7 @@
                                    name="password"
                                    placeholder="••••••••"
                                    class="input input-bordered @error('password') input-error @enderror"
+                                   id="myPassword1"
                                    required>
                             <span>Password</span>
                         </label>
@@ -65,13 +66,24 @@
                                    name="password_confirmation"
                                    placeholder="••••••••"
                                    class="input input-bordered"
+                                   id="myPassword2"
                                    required>
                             <span>Confirm Password</span>
                         </label>
 
+                        <!-- Show Password -->
+                        <div class="form-control mt-4">
+                            <label class="label cursor-pointer justify-start">
+                                <input type="checkbox"
+                                       onclick="showPass()" 
+                                       class="checkbox">
+                                <span class="label-text ml-2">Show Password</span>
+                            </label>
+                        </div>
+
                         <!-- Submit Button -->
                         <div class="form-control mt-8">
-                            <button type="submit" class="btn btn-primary btn-sm w-full">
+                            <button type="submit" class="btn btn-primary w-full">
                                 Register
                             </button>
                         </div>
@@ -87,3 +99,20 @@
         </div>
     </div>
 </x-layout>
+
+<script>
+    function showPass() {
+        var x1 = document.getElementById("myPassword1");
+        var x2 = document.getElementById("myPassword2");
+        if (x1.type === "password") {
+            x1.type = "text";
+        } else {
+            x1.type = "password";
+        }
+        if (x2.type === "password") {
+            x2.type = "text";
+        } else {
+            x2.type = "password";
+        }
+    }
+</script>

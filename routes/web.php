@@ -6,6 +6,10 @@ use App\Http\Controllers\Auth\Register;
 use App\Http\Controllers\Auth\Login;
 use App\Http\Controllers\Auth\Logout;
 
+//Route Halaman Utama
+//Route::get('/', function () {
+    //return view('welcome');
+//});
 Route::get('/', [ChirpController::class, 'index']);
 
 // Login routes
@@ -46,6 +50,9 @@ Route::post('/register', Register::class)
 // Route untuk menampilkan halaman pencarian
 Route::get('/search', [ChirpController::class, 'search']);
 
-//Route::get('/', function () {
-    //return view('welcome');
-//});
+// Route profil pengguna yang hanya dapat diakses oleh pengguna yang sudah login
+Route::get('/my_page', [ChirpController::class, 'my_page'])
+    ->middleware('auth');
+
+// Route profil pengguna lain yang dapat diakses oleh semua pengguna
+Route::get('/user/{id}', [ChirpController::class, 'user_profile']);

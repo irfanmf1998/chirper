@@ -4,7 +4,7 @@
     </x-slot:title>
 
     <div class="max-w-2xl mx-auto">
-        <h1 class="text-3xl font-bold mt-8">Edit Chirp</h1>
+        <p class="text-3xl font-bold mt-8">Edit Chirp</p>
 
         <div class="card bg-base-100 mt-8"> <!-- shadow -->
             <div class="card-body">
@@ -32,7 +32,7 @@
                         <a href="/" class="btn btn-ghost btn-sm">
                             Cancel
                         </a>
-                        <button type="submit" class="btn btn-primary btn-sm">
+                        <button type="submit" class="btn btn-warning btn-soft btn-sm">
                             Update Chirp
                         </button>
                     </div>
