@@ -31,7 +31,22 @@
                     <img src="https://avatars.laravel.cloud/{{ urlencode($user->email) }}" alt="{{ $user->name }}'s avatar" class="rounded-full" />
                 </div>
                 <div class="card card-body bg-base-300 rounded-box grid h-35 grow">
-                    <p class="text-2xl font-bold text-primary">{{ $user->name }}</p>
+                    <p class="text-2xl font-bold text-primary">
+                        {{ $user->name }}
+                        @if (auth()->user())
+                            <?php $userToFollow = \App\Models\User::findOrFail($user->id); ?>
+                            {{-- OverTrue Version --}}
+                            @if (auth()->user()->isFollowing($userToFollow))
+                                <a href="/user/{{ $user->id }}/unfollow" class="btn btn-sm">Unfollow</a>
+                            @else
+                                <a href="/user/{{ $user->id }}/follow" class="btn btn-primary btn-sm">Follow</a>
+                            @endif
+
+                            {{-- Custom Version --}}
+                            {{-- <a href="/user/{{ $user->id }}/follow" class="btn btn-primary btn-sm">Follow</a>
+                            <a href="/user/{{ $user->id }}/unfollow" class="btn btn-sm">Unfollow</a> --}}
+                        @endif
+                    </p>
                     <p>Email : <b>{{ $user->email }}</b></p>
                     <p>Joined : <b>{{ $user->created_at->format('d M Y') }}</b></p>
                 </div>

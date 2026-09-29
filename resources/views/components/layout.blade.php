@@ -51,7 +51,7 @@
         <div class="navbar-end gap-2">
             @auth <!-- Jika pengguna sudah login -->
                 <!-- My Page -->
-                <a href="/my_page" class="btn btn-ghost">
+                <a href="/my-page" class="btn btn-ghost">
                     <div class="avatar">
                         <img src="https://avatars.laravel.cloud/{{ urlencode(auth()->user()->email) }}" alt="{{ auth()->user()->name }}'s avatar" class="size-8 rounded-full" />
                     </div>
@@ -72,18 +72,33 @@
         </div>
     </nav>
 
-    <!-- Toast (Notifikasi) -->
+    <!-- Success Toast -->
     @if (session('success'))
         <div class="toast toast-top toast-center" style="position: fixed; top: 6rem; left: 50%; z-index: 1000;"> <!-- transform: translateX(-50%); -->
             <div class="alert alert-success animate-fade-out">
                 <svg xmlns="<http://www.w3.org/2000/svg>" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <span class="text-lg">{{ session('success') }}</span>
+                <span class="text-lg text-success-content">{{ session('success') }}</span>
             </div>
         </div>
     @endif
-    <!-- Toast (Notifikasi) -->
+    <!-- Success Toast -->
+
+    <!-- Error Toast -->
+    @if (session('error'))
+        <div class="toast toast-top toast-center" style="position: fixed; top: 6rem; left: 50%; z-index: 1000;"> <!-- transform: translateX(-50%); -->
+            <div class="alert alert-error animate-fade-out">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <span class="text-lg text-error-content">{{ session('error') }}</span>
+            </div>
+        </div>
+    @endif
+    <!-- Error Toast -->
     
     <!-- Ini bagian utama dari halaman, di mana konten spesifik dari setiap halaman akan ditampilkan -->
     <main class="flex-1 container mx-auto px-4 py-20">
