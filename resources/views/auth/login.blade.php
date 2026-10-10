@@ -7,7 +7,7 @@
         <div class="hero-content flex-col">
             <div class="card w-96 bg-base-100">
                 <div class="card-body">
-                    <h1 class="text-xl mt-1 font-bold text-center mb-6">Welcome Back</h1> <!-- text-3xl -->
+                    <p class="text-3xl mt-1 font-bold text-center mb-6 text-primary">Welcome Back</p> <!-- text-3xl -->
 
                     <form method="POST" action="/login">
                         @csrf
@@ -35,6 +35,7 @@
                                    name="password"
                                    placeholder="••••••••"
                                    class="input input-bordered @error('password') input-error @enderror"
+                                   id="myPassword"
                                    required>
                             <span>Password</span>
                         </label>
@@ -43,6 +44,16 @@
                                 <span class="label-text-alt text-error">{{ $message }}</span>
                             </div>
                         @enderror
+
+                        <!-- Show Password -->
+                        <div class="form-control mt-4">
+                            <label class="label cursor-pointer justify-start">
+                                <input type="checkbox"
+                                       onclick="showPass()" 
+                                       class="checkbox">
+                                <span class="label-text ml-2">Show Password</span>
+                            </label>
+                        </div>
 
                         <!-- Remember Me -->
                         <div class="form-control mt-4">
@@ -56,7 +67,7 @@
 
                         <!-- Submit Button -->
                         <div class="form-control mt-8">
-                            <button type="submit" class="btn btn-primary btn-sm w-full">
+                            <button type="submit" class="btn btn-primary w-full">
                                 Sign In
                             </button>
                         </div>
@@ -72,3 +83,14 @@
         </div>
     </div>
 </x-layout>
+
+<script>
+    function showPass() {
+        var x = document.getElementById("myPassword");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>

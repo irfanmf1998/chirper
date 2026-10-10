@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="lofi">
+<html lang="en" data-theme="default">
 
 <head>
     <meta charset="UTF-8">
@@ -19,42 +19,32 @@
             Home Feed
         </x-slot:title>
 
-        <div class="card bg-base-100 shadow mt-8">
-            <div class="card-body">
-                <div>
-                    <h1 class="text-3xl font-bold">Welcome to Chirper!</h1>
-                    <p class="mt-4 text-base-content/60">This is your brand new Laravel application. Time to make it sing (or chirp)!</p>
-                    <p class="mt-2 text-sm text-gray-600">Now this is live on the internet! 🎉</p>
+        <div class="grid grid-cols-2 gap-4 w-full bg-base-300 rounded-box p-4">
+
+            <!-- Welcome -->
+            <div class="card bg-base-100 shadow">
+                <div class="card-body">
+                    <div>
+                        <p class="text-3xl font-bold text-primary">Welcome to Chirper!</p>
+                        <p class="mt-4 text-base-content/60">This is your brand new Laravel application. Time to make it sing (or chirp)!</p>
+                        <p class="mt-2 text-sm text-gray-600">Now this is live on the internet! 🎉</p>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Form pencarian chirp -->
-        <div class="mt-8">
-            <form action="/search" method="GET">
-                <input type="text" name="cari" placeholder="Search chirps.." class="input" value="{{ old('cari') }}">
-                <input class="btn" type="submit" value="SEARCH">
-            </form>
-        </div>     
-
-        <div class="max-w-2xl mx-auto">
-            <h1 class="text-3xl font-bold mt-8">Latest Chirps</h1>
+            <!-- Welcome -->
 
             <!-- Chirp Form -->
-            <div class="card bg-base-100 shadow mt-8">
+            <div class="card bg-base-100 shadow">
                 <div class="card-body">
                     <form method="POST" action="/chirps">
                         @csrf
                         <div class="form-control w-full">
-                            <textarea
-                                name="message"
-                                placeholder="What's on your mind?"
-                                class="textarea textarea-bordered w-full resize-none @error('message') textarea-error @enderror"
-                                rows="4"
-                                maxlength="255"
-                                required
-                            >{{ old('message') }}</textarea>
-
+                            <!-- 
+                                Textarea dibuat panjang ke pinggir 
+                                agar tidak memunculkan "Blank Space" 
+                                pada tampilan form chirp 
+                            -->
+                            <textarea name="message" placeholder="What's on your mind?" class="textarea w-full resize-none @error('message') textarea-error @enderror" rows="4" maxlength="255" required>{{ old('message') }}</textarea>
                             @error('message')
                                 <div class="label">
                                     <span class="label-text-alt text-error">{{ $message }}</span>
@@ -63,32 +53,36 @@
                         </div>
 
                         <div class="mt-4 flex items-center justify-end">
-                            <button type="submit" class="btn btn-primary btn-sm">
+                            <button type="submit" class="btn btn-primary">
                                 Chirp
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
+            <!-- Chirp Form -->
 
+        </div>
+
+        <div class="divider py-4">
+            <p class="text-3xl font-bold">Latest Chirps</p>     <!-- <h1 class="text-3xl font-bold mt-8">Latest Chirps</h1> -->
+        </div>
+
+        <div class="max-w-3xl mx-auto">
+
+            <!-- Form pencarian chirp -->
+            <div class="py-4">
+                <form action="/search" method="GET" class="max-w-md mx-auto flex items-center">
+                    <input type="text" style="width: 150%;" class="input input-primary" name="cari" placeholder="Find chirps by keyword ..." value="{{ old('cari') }}">
+                    <input type="submit" class="btn btn-primary ml-4" value="Search">
+                </form>
+            </div>     
+            <!-- Form pencarian chirp -->
+
+            <!-- Menampilkan chirp -->
             <div class="space-y-4 mt-8">
                 @forelse ($chirps as $chirp)
-                    <x-chirp :chirp="$chirp" />
-                    <!-- <div class="card bg-base-100 shadow mt-8">
-                        <div class="card-body">
-                            <div>
-                                <div class="font-semibold">{{ $chirp->user ? $chirp->user->name : 'Anonymous' }}</div>
-                                <div class="mt-1">{{ $chirp->message }}</div>
-                                <div class="text-sm text-gray-500 mt-2">
-                                    {{ $chirp->created_at->diffForHumans() }}
-                                </div>
-
-                                <div class="font-semibold">{{ $chirp['author'] }}</div>
-                                <div class="mt-1">{{ $chirp['message'] }}</div>
-                                <div class="text-sm text-gray-500 mt-2">{{ $chirp['time'] }}</div>
-                            </div>
-                        </div>
-                    </div> -->
+                    <x-chirp :chirp="$chirp"/>
                 @empty
                     <div class="hero py-12">
                         <div class="hero-content text-center">
@@ -100,12 +94,14 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <p class="text-gray-500">No chirps yet. Be the first to chirp!</p> -->
                 @endforelse
             </div>
+            <!-- Menampilkan chirp -->
 
+            <!-- Pagination -->
             <br>
             {{ $chirps->links() }}
+            <!-- Pagination -->
 
         </div>
     </x-layout>
