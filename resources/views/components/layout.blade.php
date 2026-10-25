@@ -72,7 +72,7 @@
         </div>
     </nav>
 
-    <!-- Success Toast -->
+    <!-- Notifikasi/Toast Warna Hijau "Success" -->
     @if (session('success'))
         <div class="toast toast-top toast-center" style="position: fixed; top: 6rem; left: 50%; z-index: 1000;"> <!-- transform: translateX(-50%); -->
             <div class="alert alert-success animate-fade-out">
@@ -83,9 +83,9 @@
             </div>
         </div>
     @endif
-    <!-- Success Toast -->
+    <!-- Notifikasi/Toast Warna Hijau "Success" -->
 
-    <!-- Error Toast -->
+    <!-- Notifikasi/Toast Warna Merah "Error" -->
     @if (session('error'))
         <div class="toast toast-top toast-center" style="position: fixed; top: 6rem; left: 50%; z-index: 1000;"> <!-- transform: translateX(-50%); -->
             <div class="alert alert-error animate-fade-out">
@@ -98,7 +98,20 @@
             </div>
         </div>
     @endif
-    <!-- Error Toast -->
+    <!-- Notifikasi/Toast Warna Merah "Error" -->
+
+    <!-- Notifikasi/Toast Warna Biru Muda "Info" -->
+    @if (session('info'))
+        <div class="toast toast-top toast-center" style="position: fixed; top: 6rem; left: 50%; z-index: 1000;"> <!-- transform: translateX(-50%); -->
+            <div class="alert alert-info animate-fade-out">
+                <svg xmlns="<http://www.w3.org/2000/svg>" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span class="text-lg text-info-content">{{ session('info') }}</span>
+            </div>
+        </div>
+    @endif
+    <!-- Notifikasi/Toast Warna Biru Muda "Info" -->
     
     <!-- Ini bagian utama dari halaman, di mana konten spesifik dari setiap halaman akan ditampilkan -->
     <main class="flex-1 container mx-auto px-4 py-20">

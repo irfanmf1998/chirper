@@ -289,7 +289,46 @@ class ChirpController extends Controller
         // return redirect()->back()->with('success', 'User Unfollowed Successfully.');
     }
 
+    /**
+     *          Fungsi Untuk Memberikan "Like" Pada Suatu Chirp
+     */
+    public function like($id)
+    {
+        // Menangkap Data
+        $userID = auth()->id();         // ID Pengguna
+        $chirpID = \App\Models\Chirp::findOrFail($id);           // Data Chirp Berdasarkan ID
+        $time = date("Y-m-d H:i:s");            // Waktu
 
+        // Insert Data
+        DB::table('likes')->insert([
+            'user_id' => $userID,
+            'chirp_id' => $chirpID->id,
+            'created_at' => $time,
+            'updated_at' => $time
+        ]);
 
+        // Notifikasi Like
+        return redirect()->back()->with('info', 'Berhasil Memberi Like');
+    }
+
+    /**
+     *          Fungsi Untuk Membatalkan "Like" Pada Suatu Chirp (Baca : "DisLike")
+     */
+    public function dislike($id)
+    {
+        // Menangkap Data
+        $userID = auth()->id();         // ID Pengguna
+        $chirpID = \App\Models\Chirp::findOrFail($id);           // Data Chirp Berdasarkan ID
+
+        // Delete Data
+        DB::table('likes')
+            ->where('user_id',$userID)
+            ->where('chirp_id',$chirpID->id)
+            ->delete();
+
+        // Notifikasi DisLike
+        return redirect()->back()->with('error', 'Berhasil Membatalkan Like');
+    }
+    
     //  ... more code
 }
