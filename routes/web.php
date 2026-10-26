@@ -43,6 +43,8 @@ Route::middleware('auth')
 // Route untuk menampilkan halaman pencarian
 Route::get('/search', [ChirpController::class, 'search']);
 
+
+
 //////          User Page         //////
 
 // Route profil pengguna yang hanya dapat diakses oleh pengguna yang sudah login
@@ -51,6 +53,8 @@ Route::get('/my-page', [ChirpController::class, 'myPage'])
 
 // Route profil pengguna lain yang dapat diakses oleh semua pengguna
 Route::get('/user/{id}', [ChirpController::class, 'userProfile']);
+
+
 
 //////          Follow/Unfollow System          //////
 
@@ -61,3 +65,13 @@ Route::get('/user/{id}/follow', [ChirpController::class, 'follow'])->middleware(
 // Route untuk berhenti mengikuti pengguna lain
 // Route::get('/user/{id}/unfollow', [ChirpController::class, 'unfollowOvertrue'])->middleware('auth');
 Route::get('/user/{id}/unfollow', [ChirpController::class, 'unfollow'])->middleware('auth');
+
+
+
+//////          Like/DisLike System         //////
+
+// Route Like Chirp
+Route::get('chirps/{id}/like',[ChirpController::class, 'like'])->middleware('auth');
+
+// Route DisLike Chirp
+Route::get('chirps/{id}/dislike',[ChirpController::class, 'dislike'])->middleware('auth');
